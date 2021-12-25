@@ -2,6 +2,7 @@ import { IConfig } from './interfaces/config.interface';
 import { ValidateNested, validateSync, ValidationError } from 'class-validator';
 import { IApi } from './interfaces/api.interface';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { ISession } from './interfaces/session.interface';
 
 export class ConfigValidator {
   private readonly validatedConfig: IConfig;
@@ -42,8 +43,12 @@ class ValidatedConfig {
   @ValidateNested()
   readonly database: TypeOrmModuleOptions;
 
+  @ValidateNested()
+  readonly session: ISession;
+
   constructor(config) {
     this.api = config.api;
     this.database = config.database;
+    this.session = config.session;
   }
 }
