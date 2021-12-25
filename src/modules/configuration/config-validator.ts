@@ -1,6 +1,7 @@
-import { IConfig } from "./interfaces/config.interface";
-import { ValidateNested, validateSync, ValidationError } from "class-validator";
-import { IApi } from "./interfaces/api.interface";
+import { IConfig } from './interfaces/config.interface';
+import { ValidateNested, validateSync, ValidationError } from 'class-validator';
+import { IApi } from './interfaces/api.interface';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export class ConfigValidator {
   private readonly validatedConfig: IConfig;
@@ -12,31 +13,37 @@ export class ConfigValidator {
   validate(): void {
     const result: ValidationError[] = validateSync(this.validatedConfig);
 
-    if(result.length) {
+    if (result.length) {
       const { value, property, constraints } = result[0];
 
       throw new Error(this.constructErrorMessage(value, property, constraints));
     }
-
   }
 
-  constructErrorMessage(property: string, value: string, constraints: any): string {
+  constructErrorMessage(
+    property: string,
+    value: string,
+    constraints: any,
+  ): string {
     let message = `Property ${property} = ${value} does not pass the validation. Message: `;
 
     Object.keys(constraints).map((key) => {
       message += `${key} - ${constraints[key]}`;
-    })
+    });
 
     return message;
   }
 }
 
 class ValidatedConfig {
-
   @ValidateNested()
   readonly api: IApi;
 
+  @ValidateNested()
+  readonly database: TypeOrmModuleOptions;
+
   constructor(config) {
     this.api = config.api;
+    this.database = config.database;
   }
 }
