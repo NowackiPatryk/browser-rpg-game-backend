@@ -23,4 +23,10 @@ export class CreateUserDto {
   @MinLength(6)
   @MaxLength(64)
   readonly confirmPassword: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(3)
+  @MaxLength(16)
+  readonly characterName: string;
 }

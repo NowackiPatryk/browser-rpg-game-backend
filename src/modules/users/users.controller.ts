@@ -16,11 +16,11 @@ export class UsersController {
       throw new BadRequestException('Passwords are not equal!');
     }
 
-    const { id, email } = await this.usersService.create(payload);
+    const { id } = await this.usersService.create(payload);
 
     await this.charactersService.create({
       userId: id,
-      nick: email + '-character',
+      nick: payload.characterName,
     });
   }
 }
