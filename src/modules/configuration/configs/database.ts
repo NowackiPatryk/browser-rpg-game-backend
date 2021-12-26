@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import { Character } from "src/modules/character/character.entity";
 import { User } from "src/modules/users/user.entity";
 
 require('dotenv').config();
@@ -8,6 +9,7 @@ const databaseConfig: TypeOrmModuleOptions = {
   url: process.env.DATABASE_URL,
   entities: [
     User,
+    Character,
   ],
   autoLoadEntities: true,
   synchronize: true,

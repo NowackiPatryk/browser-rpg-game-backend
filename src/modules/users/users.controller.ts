@@ -1,11 +1,13 @@
 import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
-import { CreateUserDto } from './dtos/CreateUserDto.dto';
+import { CharactersService } from '../character/characters.service';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
+    private readonly charactersService: CharactersService,
   ) {}
 
   @Post()
@@ -14,6 +16,11 @@ export class UsersController {
       throw new BadRequestException('Passwords are not equal!');
     }
 
-    return this.usersService.create(payload);
+    const { id, email } = await this.usersService.create(payload);
+
+    await this.charactersService.create({
+      userId: id,
+      nick: email + '-character',
+    });
   }
 }
