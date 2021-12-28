@@ -46,7 +46,7 @@ class ValidatedConfig {
   @ValidateNested()
   readonly session: ISession;
 
-  constructor(config) {
+  constructor(config: IConfig) {
     this.api = config.api;
     this.database = config.database;
     this.session = config.session;

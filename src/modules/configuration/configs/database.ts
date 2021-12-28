@@ -1,6 +1,6 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
-import { Character } from "src/modules/character/character.entity";
-import { User } from "src/modules/users/user.entity";
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { Character } from 'src/modules/character/character.entity';
+import { User } from 'src/modules/users/user.entity';
 
 require('dotenv').config();
 
@@ -12,7 +12,7 @@ const databaseConfig: TypeOrmModuleOptions = {
     Character,
   ],
   autoLoadEntities: true,
-  synchronize: true,
+  synchronize: true,  //  TODO: migrations
 };
 
 export default databaseConfig;
