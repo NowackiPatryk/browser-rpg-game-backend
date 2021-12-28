@@ -19,6 +19,21 @@ export class Character {
   @Column({
     type: 'integer',
   })
+  readonly level: number;
+
+  @Column({
+    type: 'integer',
+  })
+  readonly currentExp: number;
+
+  @Column({
+    type: 'integer',
+  })
+  readonly expRequiredToNextLevel: number;
+
+  @Column({
+    type: 'integer',
+  })
   readonly strength: number;
 
   @Column({

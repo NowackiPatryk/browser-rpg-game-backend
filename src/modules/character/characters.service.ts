@@ -12,7 +12,7 @@ export class CharactersService {
     private readonly characterRepository: Repository<Character>,
   ) {}
 
-  async create(payload: CreateCharacterDto) {
+  async create(payload: CreateCharacterDto) { //  TODO: validate if payload matches CreateCharacterDto ( runtime )
     this.characterRepository.save({
       ...payload,
       ...characterBaseStats,
